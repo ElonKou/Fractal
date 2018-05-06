@@ -27,8 +27,8 @@
 // Define the fratral config.
 #ifndef FRACTAL_CONFIG
 #define FRACTAL_CONFIG
-#define POINT_CNT 5
+#define POINT_CNT 6
 #define PATTERN_CNT 4
-#define F_TIME 5
+#define F_TIME 7
 #endif
 

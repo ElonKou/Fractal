@@ -24,6 +24,8 @@ Fractal::Fractal() : pointsCnt(POINT_CNT), patternCnt(PATTERN_CNT)
 
 Fractal::Fractal(int pointsCnt, int patternCnt) : pointsCnt(pointsCnt), patternCnt(patternCnt)
 {
+    Fractal::pointsCnt = POINT_CNT;
+    Fractal::patternCnt = PATTERN_CNT;
     Fractal::buildMatrix();
     Fractal::buildPattern();
     Fractal::buildPoints();
@@ -39,8 +41,8 @@ void Fractal::buildPoints()
 {
     for (int i = 0; i < POINT_CNT; i++)
     {
-        float x = 100 + i * 50;
-        float y = 270 + 80 * pow(-1, i);
+        float x = 100 + i * 150;
+        float y = 190 + x / 5 + 180 * pow(-1, i);
         Fractal::Points.push_back(Point(x, y));
     }
 }
@@ -49,8 +51,8 @@ void Fractal::buildPattern()
 {
     for (int i = 0; i < PATTERN_CNT; i++)
     {
-        float x = 50 + i * 60;
-        float y = 100 + 80 * pow(-1, i) + x / 4;
+        float x = 50 + i * 45;
+        float y = 100 + 30 * pow(-1, i) + x / 3;
         Fractal::Pattern.push_back(Point(x, y));
     }
 }
@@ -77,6 +79,29 @@ void Fractal::printPattern()
         Fractal::Pattern[i].print();
     }
     printf("\n");
+}
+
+void Fractal::generate()
+{
+    for (int i = 0; i < F_TIME; i++)
+    {
+        for (int j = 0; j < Fractal::pointsCnt - 1; j++)
+        {
+            Fractal::M = Matrix::getMatrix(Fractal::Pattern[0], Fractal::Pattern[Fractal::patternCnt - 1], Fractal::Points[j], Fractal::Points[j + 1]);
+            for (int k = 0; k < Fractal::patternCnt - 1; k++)
+            {
+                Point T = Fractal::M * Fractal::Pattern[k];
+                Fractal::Points.push_back(T);
+            }
+        }
+        Point T = Fractal::M * Fractal::Pattern[patternCnt - 1];
+        Fractal::Points.push_back(T);
+        for (int j = 0; j < Fractal::pointsCnt; j++)
+        {
+            Fractal::Points.erase(Fractal::Points.begin(), Fractal::Points.begin() + 1);
+        }
+        Fractal::pointsCnt = (Fractal::pointsCnt - 1) * (Fractal::patternCnt - 1) + 1;
+    }
 }
 
 // void fractalInit()

@@ -11,15 +11,19 @@
 #include "window.h"
 #include "Fractal.h"
 #include "lib.h"
+#include "main.h"
+
+Fractal F;
 
 int main(int argc, char *argv[])
 {
-    windowInit(argc, argv);
-    Fractal F;
+    Window W;
+    W.windowInit(argc, argv);
     F.printMatrix();
     F.printPattern();
     F.printPoints();
-    windowLoop();
+    F.generate();
+    W.windowLoop();
 
     return 0;
 }

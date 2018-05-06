@@ -26,7 +26,7 @@ class Matrix
     Matrix &operator=(const Matrix(&M));
     Matrix operator+(const Matrix(&M));
     Matrix operator*(const Matrix(&M));
-    Matrix getMatrix( Point(&A), Point(&B), Point(&C), Point(&D));
+    static Matrix getMatrix( Point(&A), Point(&B), Point(&C), Point(&D));
     float *operator[](const int index);
 };
 
